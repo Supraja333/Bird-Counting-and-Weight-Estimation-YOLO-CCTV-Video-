@@ -16,6 +16,31 @@ Artifacts:
 Annotated output video (bounding boxes, IDs, count overlay)
 JSON output with counts, tracking data, and weight estimates.
 
+Methodology
+1. Detection
+YOLO detects objects belonging to the bird class
+Each detection includes bounding box coordinates and confidence score
+2. Tracking
+ByteTrack assigns a persistent track ID to each bird
+This ensures:
+No double counting
+Robust handling of short occlusions
+3. Counting Over Time
+For each frame:
+Count = number of active tracking IDs
+Output format:
+timestamp (or frame_id) → bird_count
+4. Weight Estimation (Proxy)
+Since true weight ground truth is unavailable, a relative weight index is used:
+weight_index = bounding_box_area / scaling_factor
+Larger bounding box → higher estimated weight
+Reported as index, not grams
+To Convert to Real Weight (grams), Additional Data Required:
+Camera calibration (pixel → cm)
+Camera mounting height
+Ground-truth sample bird weights
+Regression mapping: pixel area → grams.
+
 API Specification
 GET /health
 Returns a simple health check response.
