@@ -27,7 +27,7 @@
     }
   ],
   "artifacts": {
-    "annotated_video": "annotated_hen_detection.mp4",
+    "annotated_video": "annotated_output.mp4",
     "json_output": "hen_count_weight.json"
   }
 }
